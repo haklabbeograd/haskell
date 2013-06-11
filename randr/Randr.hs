@@ -6,8 +6,9 @@ import Graphics.X11.Xrandr
 
 main = do
     disp <- openDisplay ":0"
-    scr = screenOfDisplay disp 0
-    w = rootWindowOfScreen scr
-    res <- xrrGetScreenResources dpy w
+    let
+        scr = defaultScreen disp
+    w <- rootWindow disp scr
+    res <- xrrGetScreenResources disp w
     putStrLn $ show $ fmap xrr_sr_outputs res
 
